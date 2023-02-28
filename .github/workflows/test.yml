@@ -30,5 +30,7 @@ jobs:
           library("GenomicRanges")
           library("rtracklayer")
           range <- GRanges(seqnames = "chrY", ranges = IRanges(1, 57227415))
-          rtracklayer::import("http://duffel.rail.bio/recount/SRP002001/bw/mean_SRP002001.bw", selection = reduce(range), as = "RleList")
+          rtracklayer::import("http://sciserver.org/public-data/recount2/data/SRP002001/bw/mean_SRP002001.bw",
+          selection = reduce(range), as = "RleList")
+          sessionInfo()
         shell: Rscript {0}
