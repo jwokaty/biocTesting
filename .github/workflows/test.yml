@@ -1,0 +1,34 @@
+on:
+  workflow_dispatch:
+
+name: Mac Test 
+
+jobs:
+
+  mac-test:
+
+    runs-on: macos-latest
+
+    steps:
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install BiocManager
+        run: install.packages("BiocManager", repos="https://cran.r-project.org")
+        shell: Rscript {0}
+
+      - name: Install packages 
+        run: |
+          BiocManager::install(c("GenomicRanges", "rtracklayer"))
+          library(GenomicRanges)
+          library(rtracklayer)
+        shell: Rscript {0}
+
+      - name: Test Case
+        run: |
+          library("GenomicRanges")
+          library("rtracklayer")
+          range <- GRanges(seqnames = "chrY", ranges = IRanges(1, 57227415))
+          rtracklayer::import("http://duffel.rail.bio/recount/SRP002001/bw/mean_SRP002001.bw", selection = reduce(range), as = "RleList")
+        shell: Rscript {0}
