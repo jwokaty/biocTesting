@@ -43,6 +43,7 @@ jobs:
       - name: Test Case - fgsea built with Simon's configuration
         run: |
           library("fgsea")
+          exampleRanks
           remove.packages("fgsea")
         shell: Rscript {0}
 
