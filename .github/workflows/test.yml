@@ -35,17 +35,17 @@ jobs:
           install.packages(pkgs, repos=repos)
         shell: Rscript {0}
 
-      - name: Install packages 
+      - name: Install fgsea built with Simon's configuration 
         run: |
           cd $GITHUB_WORKSPACE
           Rscript -e "install.packages('fgsea_1.25.2.tgz', type='binary', repos=NULL)"
 
-      - name: Test Case - New .tgz
+      - name: Test Case - fgsea built with Simon's configuration
         run: |
           library("fgsea")
         shell: Rscript {0}
 
-      - name: Test Case - Broken .tgz
+      - name: Test Case - fgsea built without Simon's configuration 
         run: |
           remove.packages("fgsea")
           BiocManager::install("fgsea")
