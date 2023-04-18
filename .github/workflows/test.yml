@@ -22,7 +22,7 @@ jobs:
       - name: Install R
         run: |
           curl -LO https://mac.r-project.org/big-sur-x86_64/R-4.3-branch/R-4.3-branch-x86_64.pkg
-          sudo installer-pkg R-4.3-branch-x86_64.pkg -target /
+          sudo installer -pkg R-4.3-branch-x86_64.pkg -target /
 
       - name: Install BiocManager and Dependencies
         run: |
