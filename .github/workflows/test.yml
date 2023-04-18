@@ -25,9 +25,8 @@ jobs:
 
       - name: Install packages 
         run: |
-          setwd($GITHUB_WORKSPACE)
-          install.packages("fgsea_1.25.2.tgz", type="binary", repos=NULL)
-        shell: Rscript {0}
+          cd $GITHUB_WORKSPACE
+          Rscript -e "install.packages('fgsea_1.25.2.tgz', type='binary', repos=NULL)"
 
       - name: Test Case
         run: |
