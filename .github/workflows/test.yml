@@ -21,6 +21,7 @@ jobs:
 
       - name: Install BiocManager
         run: |
+          install.package("BiocManager", repos="https://cran.r-project.org")
           pkgs <- c("BiocParallel", "Rcpp", "data.table", "stats", "ggplot2",
                     "cowplot", "grid", "fastmatch", "Matrix", "scales",
                     "utils")
