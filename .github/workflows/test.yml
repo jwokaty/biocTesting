@@ -20,7 +20,9 @@ jobs:
           r-version: 'devel'
 
       - name: Install BiocManager
-        run: install.packages("BiocManager", repos="https://cran.r-project.org")
+        run: |
+          install.packages("BiocManager", repos="https://cran.r-project.org")
+          BiocManager::install("BiocParallel", "Rcpp", "data.table", "stats", "ggplot2", "cowplot", "grid", "fastmatch", "Matrix", "scales", "utils")
         shell: Rscript {0}
 
       - name: Install packages 
