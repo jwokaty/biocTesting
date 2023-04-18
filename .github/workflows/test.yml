@@ -43,11 +43,11 @@ jobs:
       - name: Test Case - fgsea built with Simon's configuration
         run: |
           library("fgsea")
+          remove.packages("fgsea")
         shell: Rscript {0}
 
       - name: Test Case - fgsea built without Simon's configuration 
         run: |
-          remove.packages("fgsea")
           BiocManager::install("fgsea")
           library("fgsea")
         shell: Rscript {0}
