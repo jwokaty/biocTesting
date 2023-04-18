@@ -1,18 +1,23 @@
 on:
   workflow_dispatch:
 
-name: Mac Test 
+name: MacOSX11 Test 
 
 jobs:
 
   mac-test:
 
-    runs-on: macos-latest
+    runs-on: macos-11
 
     steps:
 
+      - name: Checkout Repository
+        uses: actions/checkout@3
+
       - name: Install R
         uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'devel'
 
       - name: Install BiocManager
         run: install.packages("BiocManager", repos="https://cran.r-project.org")
@@ -20,17 +25,11 @@ jobs:
 
       - name: Install packages 
         run: |
-          BiocManager::install(c("GenomicRanges", "rtracklayer"))
-          library(GenomicRanges)
-          library(rtracklayer)
+          setwd($GITHUB_WORKSPACE)
+          install.packages("fgsea_1.25.2.tgz", type="binary", repos=NULL)
         shell: Rscript {0}
 
       - name: Test Case
         run: |
-          library("GenomicRanges")
-          library("rtracklayer")
-          range <- GRanges(seqnames = "chrY", ranges = IRanges(1, 57227415))
-          rtracklayer::import("http://sciserver.org/public-data/recount2/data/SRP002001/bw/mean_SRP002001.bw",
-          selection = reduce(range), as = "RleList")
-          sessionInfo()
+          library("fgsea")
         shell: Rscript {0}
