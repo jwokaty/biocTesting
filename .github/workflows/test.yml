@@ -40,7 +40,14 @@ jobs:
           cd $GITHUB_WORKSPACE
           Rscript -e "install.packages('fgsea_1.25.2.tgz', type='binary', repos=NULL)"
 
-      - name: Test Case
+      - name: Test Case - New .tgz
         run: |
+          library("fgsea")
+        shell: Rscript {0}
+
+      - name: Test Case - Broken .tgz
+        run: |
+          remove.packages("fgsea")
+          BiocManager::install("fgsea")
           library("fgsea")
         shell: Rscript {0}
