@@ -17,7 +17,7 @@ jobs:
           echo "Download Salt"
           curl -LO https://repo.saltproject.io/salt/py3/macos/latest/salt-3006.5-py3-x86_64.pkg
           echo "Install Salt"
-          sudo installer -verbose -pkg salt-3006.5-py3-x86_64.pkg
+          sudo installer -verbose -pkg salt-3006.5-py3-x86_64.pkg -target /
 
       - name: Clone Bioconductor/bioconductor_salt
         run: |
