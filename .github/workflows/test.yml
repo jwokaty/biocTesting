@@ -28,9 +28,8 @@ jobs:
       - name: Copy Salt files
         run: |
           echo "Copy Salt files"
-          sudo cp bioconductor_salt/minion.d/mac.minion.conf /etc/salt/minion
-          sudo cp -R bioconductor_salt/saltstack /opt
-          sudo cp init.sls /opt/saltstack/pillar/custom
+          sudo cp $GITHUB_WORKSPACE/bioconductor_salt/minion.d/mac.minion.conf /etc/salt/minion
+          sudo cp -R $GITHUB_WORKSPACE/bioconductor_salt/saltstack /opt
 
       - name: Inefficiently make custom file
         run: |
