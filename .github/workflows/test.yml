@@ -34,13 +34,14 @@ jobs:
 
       - name: Inefficiently make custom file
         run: |
-          sudo echo "{% set branch = 'devel' %}" >> /opt/saltstack/pillar/custom/init.sls
-          sudo echo "{% set version = '3.19' %}" >> /opt/saltstack/pillar/custom/init.sls
-          sudo echo "{% set environment = 'dev' %}" >> /opt/saltstack/pillar/custom/init.sls
-          sudo echo "{% set cycle = 'patch' %}" >> /opt/saltstack/pillar/custom/init.sls
-          sudo echo "{% set name = 'bbs-machine' %}" >> /opt/saltstack/pillar/custom/init.sls
-          sudo echo "{% set immunespace_pwd = '' %}" >> /opt/saltstack/pillar/custom/init.sls
-          sudo echo "{% set machine_type = 'standalone' %}" >> /opt/saltstack/pillar/custom/init.sls
+          echo "{% set branch = 'devel' %}" >> init.sls
+          echo "{% set version = '3.19' %}" >> init.sls
+          echo "{% set environment = 'dev' %}" >> init.sls
+          echo "{% set cycle = 'patch' %}" >> init.sls
+          echo "{% set name = 'bbs-machine' %}" >> init.sls
+          echo "{% set immunespace_pwd = '' %}" >> init.sls
+          echo "{% set machine_type = 'standalone' %}" >> init.sls
+          sudo mv init.sls /opt/saltstack/pillar/custom
 
       - name: Run Salt
         run: |
