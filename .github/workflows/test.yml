@@ -7,9 +7,15 @@ jobs:
 
   mac-test:
 
-    runs-on: macos-11
+    runs-on: macos-12
 
     steps:
+
+      - name: Configure git
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
       - name: Install SaltStack
         run: |
