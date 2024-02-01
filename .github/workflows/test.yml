@@ -28,6 +28,7 @@ jobs:
       - name: Copy Salt files
         run: |
           echo "Copy Salt files"
+          ls -lar
           sudo cp $GITHUB_WORKSPACE/bioconductor_salt/minion.d/mac.minion.conf /etc/salt/minion
           sudo cp -R $GITHUB_WORKSPACE/bioconductor_salt/saltstack /opt
 
