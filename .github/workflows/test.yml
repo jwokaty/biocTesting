@@ -41,6 +41,9 @@ jobs:
           echo "{% set name = 'bbs-machine' %}" >> init.sls
           echo "{% set immunespace_pwd = '' %}" >> init.sls
           echo "{% set machine_type = 'standalone' %}" >> init.sls
+          echo "{% set r_download = '' %}" >> init.sls
+          echo "{% set r_version = '' %}" >> init.sls
+          echo "{% set r_previous_version = '' %}" >> init.sls
           sudo mv init.sls /opt/saltstack/pillar/custom
 
       - name: Run Salt
