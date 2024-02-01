@@ -19,10 +19,10 @@ jobs:
           echo "Install Salt"
           sudo installer -verbose -pkg salt-3006.6-py3-x86_64.pkg -target /
 
-      - name: Clone Bioconductor/bioconductor_salt
-        uses: actions/checkout@v3
+      - name: Clone jwokaty/bioconductor_salt
+        uses: actions/checkout@v4
         with:
-          repository: Bioconductor/bioconductor_salt
+          repository: jwokaty/bioconductor_salt
           ref: issue/141
 
       - name: Copy Salt files
