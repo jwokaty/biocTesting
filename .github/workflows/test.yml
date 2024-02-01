@@ -11,17 +11,37 @@ jobs:
 
     steps:
 
-      - name: Install XQuartz - Can I use installer?
+      - name: Install SaltStack
         run: |
-          curl -LO https://github.com/XQuartz/XQuartz/releases/download/XQuartz-2.8.5/XQuartz-2.8.5.pkg
-          sudo installer -pkg XQuartz-2.8.5.pkg -target /
-  
-      - name: Install gfortran
-        run: |
-          curl -LO https://github.com/R-macos/gcc-12-branch/releases/download/12.2-darwin-r0/gfortran-12.2-darwin20-r0-universal.tar.xz
-          sudo tar -xf gfortran-12.2-darwin20-r0-universal.tar.xz -C /
+          echo "Set up SaltStack"
+          echo "Download Salt"
+          curl -LO https://repo.saltproject.io/salt/py3/macos/latest/salt-3006.5-py3-x86_64.pkg
+          echo "Install Salt"
+          sudo installer -verbose -pkg salt-3006.5-py3-x86_64.pkg
 
-      - name: Export gfortran path
+      - name: Clone Bioconductor/bioconductor_salt
         run: |
-          export PATH=$PATH:/opt/gfortran/bin
-          which gfortran
+          echo "Clone Bioconductor/bioconductor_salt"
+          git clone -b issue/141 git@github.com:Bioconductor/bioconductor_salt
+
+      - name: Copy Salt files
+        run: |
+          echo "Copy Salt files"
+          sudo cp bioconductor_salt/minion.d/mac.minion.conf /etc/salt/minion
+          sudo cp -R bioconductor_salt/saltstack /opt
+          sudo cp init.sls /opt/saltstack/pillar/custom
+
+      - name: Inefficiently make custom file
+        run: |
+          sudo echo "{% set branch = 'devel' %}" >> /opt/saltstack/pillar/custom/init.sls
+          sudo echo "{% set version = '3.19' %}" >> /opt/saltstack/pillar/custom/init.sls
+          sudo echo "{% set environment = 'dev' %}" >> /opt/saltstack/pillar/custom/init.sls
+          sudo echo "{% set cycle = 'patch' %}" >> /opt/saltstack/pillar/custom/init.sls
+          sudo echo "{% set name = 'bbs-machine' %}" >> /opt/saltstack/pillar/custom/init.sls
+          sudo echo "{% set immunespace_pwd = '' %}" >> /opt/saltstack/pillar/custom/init.sls
+          sudo echo "{% set machine_type = 'standalone' %}" >> /opt/saltstack/pillar/custom/init.sls
+
+      - name: Run Salt
+        run: |
+          echo "Run Salt"
+          sudo salt-call --local state.highstate -l debug
