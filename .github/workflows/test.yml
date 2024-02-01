@@ -20,9 +20,10 @@ jobs:
           sudo installer -verbose -pkg salt-3006.6-py3-x86_64.pkg -target /
 
       - name: Clone Bioconductor/bioconductor_salt
-        run: |
-          echo "Clone Bioconductor/bioconductor_salt"
-          git clone -b issue/141 git@github.com:Bioconductor/bioconductor_salt
+        uses: actions/checkout@v4
+        with:
+          repository: Bioconductor/bioconductor_salt
+          ref: issue/141
 
       - name: Copy Salt files
         run: |
